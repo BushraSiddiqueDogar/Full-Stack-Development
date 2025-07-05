@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Modern Photo Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 0;
+    }
+
+    @media (min-width: 319px) and (max-width: 480px) {
+      body {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      }
+    }
+
+    @media (min-width: 481px) and (max-width: 1200px) {
+      body {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      }
+    }
+
+    @media (min-width: 1201px) and (max-width: 1600px) {
+      body {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      }
+    }
+
+    @media (min-width: 1601px) {
+      body {
+        background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+      }
+    }
+
+    body {
+      font-family: 'Sono', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Main container using flexbox */
+    .gallery-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    /* Header using flexbox */
+    .gallery-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .gallery-title {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .gallery-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Main content area using CSS Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-auto-rows: 250px;
+      gap: 1.5rem;
+      flex: 1;
+    }
+
+    /* Individual photo cards using flexbox */
+    .photo-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    /* Featured card spans 2 columns on larger screens */
+    .photo-card.featured {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .photo-placeholder {
+      flex: 1;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 4rem;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Card info section using flexbox */
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .card-description {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* Action buttons using flexbox */
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .card-button {
+      padding: 0.5rem 1rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-family: 'Sono', sans-serif;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .card-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .card-likes {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 200px;
+      }
+      
+      .photo-card.featured {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+      
+      .gallery-title {
+        font-size: 2rem;
+      }
+      
+      .gallery-container {
+        padding: 1rem;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="gallery-container">
+    <div class="gallery-header">
+      <h1 class="gallery-title">Visual Stories</h1>
+      <p class="gallery-subtitle">Discover amazing photography from around the world</p>
+    </div>
+    
+    <div class="gallery-grid">
+      <div class="photo-card featured">
+        <div class="photo-placeholder">🌅</div>
+        <div class="card-info">
+          <div class="card-title">Golden Hour Magic</div>
+          <div class="card-description">Captured during the perfect lighting conditions at sunrise, this breathtaking landscape showcases nature's daily masterpiece.</div>
+          <div class="card-actions">
+            <button class="card-button">View Full</button>
+            <span class="card-likes">❤️ 247</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="photo-card">
+        <div class="photo-placeholder">🏔️</div>
+        <div class="card-info">
+          <div class="card-title">Mountain Peak</div>
+          <div class="card-description">Majestic snow-capped mountains reaching toward the sky.</div>
+          <div class="card-actions">
+            <button class="card-button">View Full</button>
+            <span class="card-likes">❤️ 156</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="photo-card">
+        <div class="photo-placeholder">🌊</div>
+        <div class="card-info">
+          <div class="card-title">Ocean Waves</div>
+          <div class="card-description">The rhythmic dance of waves against the shore.</div>
+          <div class="card-actions">
+            <button class="card-button">View Full</button>
+            <span class="card-likes">❤️ 89</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="photo-card">
+        <div class="photo-placeholder">🌺</div>
+        <div class="card-info">
+          <div class="card-title">Tropical Bloom</div>
+          <div class="card-description">Vibrant flowers in their natural habitat.</div>
+          <div class="card-actions">
+            <button class="card-button">View Full</button>
+            <span class="card-likes">❤️ 203</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="photo-card">
+        <div class="photo-placeholder">🌙</div>
+        <div class="card-info">
+          <div class="card-title">Night Sky</div>
+          <div class="card-description">Stars illuminating the darkness above.</div>
+          <div class="card-actions">
+            <button class="card-button">View Full</button>
+            <span class="card-likes">❤️ 178</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="photo-card">
+        <div class="photo-placeholder">🦋</div>
+        <div class="card-info">
+          <div class="card-title">Butterfly Wings</div>
+          <div class="card-description">Delicate beauty captured in motion.</div>
+          <div class="card-actions">
+            <button class="card-button">View Full</button>
+            <span class="card-likes">❤️ 134</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

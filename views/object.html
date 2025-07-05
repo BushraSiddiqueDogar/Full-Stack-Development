@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 30px;
+      padding: 30px;
+    }
+
+    .form-section {
+      background: rgba(102, 126, 234, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      border-left: 4px solid #667eea;
+    }
+
+    .form-section h2 {
+      color: #667eea;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .form-group i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #667eea;
+      pointer-events: none;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+    }
+
+    .list-section {
+      background: rgba(118, 75, 162, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      border-left: 4px solid #764ba2;
+    }
+
+    .list-section h2 {
+      color: #764ba2;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .student-count {
+      background: #764ba2;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 15px;
+      font-size: 0.9rem;
+    }
+
+    .student-entry {
+      background: white;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .student-entry::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .student-entry:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .student-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .student-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .student-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-small {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+      background: #3498db;
+      color: white;
+    }
+
+    .btn-edit:hover {
+      background: #2980b9;
+      transform: scale(1.05);
+    }
+
+    .btn-delete {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .btn-delete:hover {
+      background: #c0392b;
+      transform: scale(1.05);
+    }
+
+    .student-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .detail-item {
+      background: rgba(102, 126, 234, 0.05);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: #667eea;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+      font-size: 1rem;
+      color: #2c3e50;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #7f8c8d;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      margin-bottom: 15px;
+      opacity: 0.5;
+    }
+
+    .search-box {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 50px 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 25px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: #764ba2;
+      box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+    }
+
+    .search-box i {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #764ba2;
+    }
+
+    .alert {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+    }
+
+    .alert-success {
+      background: #27ae60;
+    }
+
+    .alert-error {
+      background: #e74c3c;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .student-details {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-graduation-cap"></i> Student Management System</h1>
+      <p>Manage your students with ease and efficiency</p>
+    </div>
+
+    <div class="main-content">
+      <div class="form-section">
+        <h2><i class="fas fa-user-plus"></i> Add Student</h2>
+        
+        <div class="form-group">
+          <label for="name">Student Name</label>
+          <input type="text" id="name" placeholder="Enter full name" required>
+          <i class="fas fa-user"></i>
+        </div>
+
+        <div class="form-group">
+          <label for="rollno">Roll Number</label>
+          <input type="text" id="rollno" placeholder="Enter roll number" required>
+          <i class="fas fa-id-card"></i>
+        </div>
+
+        <div class="form-group">
+          <label for="semester">Semester</label>
+          <select id="semester" required>
+            <option value="">Select Semester</option>
+            <option value="1st">1st Semester</option>
+            <option value="2nd">2nd Semester</option>
+            <option value="3rd">3rd Semester</option>
+            <option value="4th">4th Semester</option>
+            <option value="5th">5th Semester</option>
+            <option value="6th">6th Semester</option>
+            <option value="7th">7th Semester</option>
+            <option value="8th">8th Semester</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="section">Section</label>
+          <input type="text" id="section" placeholder="Enter section (e.g., A, B, C)" required>
+          <i class="fas fa-layer-group"></i>
+        </div>
+
+        <div class="form-group">
+          <label for="session">Session</label>
+          <input type="text" id="session" placeholder="Enter session (e.g., 2023-2024)" required>
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+
+        <button class="btn" id="addStudent">
+          <i class="fas fa-plus"></i> Add Student
+        </button>
+      </div>
+
+      <div class="list-section">
+        <h2>
+          <span><i class="fas fa-users"></i> Student List</span>
+          <span class="student-count" id="studentCount">0 Students</span>
+        </h2>
+
+        <div class="search-box">
+          <input type="text" id="searchStudent" placeholder="Search students by name or roll number...">
+          <i class="fas fa-search"></i>
+        </div>
+
+        <div id="studentList">
+          <div class="empty-state">
+            <i class="fas fa-users"></i>
+            <p>No students added yet. Add your first student!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let studentData = [];
+    let editingIndex = -1;
+
+    // Enhanced jQuery function for adding student
+    $.fn.StudentList = function (student, index = -1) {
+      var studentDiv = $('<div>', {
+        class: 'student-entry',
+        'data-index': index,
+        html: `
+          <div class="student-header">
+            <div class="student-name">
+              <i class="fas fa-user-graduate"></i> ${student.name}
+            </div>
+            <div class="student-actions">
+              <button class="btn-small btn-edit" onclick="editStudent(${index})">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-small btn-delete" onclick="deleteStudent(${index})">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div class="student-details">
+            <div class="detail-item">
+              <div class="detail-label">Roll Number</div>
+              <div class="detail-value">${student.rollno}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Semester</div>
+              <div class="detail-value">${student.semester}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Section</div>
+              <div class="detail-value">${student.section}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Session</div>
+              <div class="detail-value">${student.session}</div>
+            </div>
+          </div>
+        `
+      });
+      
+      this.append(studentDiv);
+      return this;
+    };
+
+    // Show alert function
+    function showAlert(message, type = 'success') {
+      const alert = $(`<div class="alert alert-${type}">${message}</div>`);
+      $('body').append(alert);
+      
+      setTimeout(() => {
+        alert.fadeOut(300, () => alert.remove());
+      }, 3000);
+    }
+
+    // Update student count
+    function updateStudentCount() {
+      const count = studentData.length;
+      $('#studentCount').text(`${count} Student${count !== 1 ? 's' : ''}`);
+    }
+
+    // Render all students
+    function renderStudents(students = studentData) {
+      $('#studentList').empty();
+      
+      if (students.length === 0) {
+        $('#studentList').html(`
+          <div class="empty-state">
+            <i class="fas fa-users"></i>
+            <p>No students found. ${studentData.length === 0 ? 'Add your first student!' : 'Try a different search.'}</p>
+          </div>
+        `);
+        return;
+      }
+
+      students.forEach((student, index) => {
+        const originalIndex = studentData.indexOf(student);
+        $('#studentList').StudentList(student, originalIndex);
+      });
+    }
+
+    // Validate student data
+    function validateStudent(student) {
+      const errors = [];
+      
+      if (!student.name.trim()) errors.push('Name is required');
+      if (!student.rollno.trim()) errors.push('Roll number is required');
+      if (!student.semester) errors.push('Semester is required');
+      if (!student.section.trim()) errors.push('Section is required');
+      if (!student.session.trim()) errors.push('Session is required');
+      
+      // Check for duplicate roll number
+      const isDuplicate = studentData.some((s, index) => 
+        s.rollno.toLowerCase() === student.rollno.toLowerCase() && index !== editingIndex
+      );
+      
+      if (isDuplicate) errors.push('Roll number already exists');
+      
+      return errors;
+    }
+
+    // Add or update student
+    $('#addStudent').click(function () {
+      const student = {
+        name: $('#name').val().trim(),
+        rollno: $('#rollno').val().trim(),
+        semester: $('#semester').val(),
+        section: $('#section').val().trim(),
+        session: $('#session').val().trim()
+      };
+
+      const errors = validateStudent(student);
+      
+      if (errors.length > 0) {
+        showAlert(errors.join('<br>'), 'error');
+        return;
+      }
+
+      if (editingIndex >= 0) {
+        studentData[editingIndex] = student;
+        showAlert('Student updated successfully!', 'success');
+        editingIndex = -1;
+        $('#addStudent').html('<i class="fas fa-plus"></i> Add Student');
+      } else {
+        studentData.push(student);
+        showAlert('Student added successfully!', 'success');
+      }
+
+      // Clear form
+      $('input, select').val('');
+      
+      // Update display
+      renderStudents();
+      updateStudentCount();
+    });
+
+    // Edit student function
+    window.editStudent = function(index) {
+      const student = studentData[index];
+      
+      $('#name').val(student.name);
+      $('#rollno').val(student.rollno);
+      $('#semester').val(student.semester);
+      $('#section').val(student.section);
+      $('#session').val(student.session);
+      
+      editingIndex = index;
+      $('#addStudent').html('<i class="fas fa-save"></i> Update Student');
+      
+      // Scroll to form
+      $('.form-section')[0].scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // Delete student function
+    window.deleteStudent = function(index) {
+      if (confirm('Are you sure you want to delete this student?')) {
+        const studentName = studentData[index].name;
+        studentData.splice(index, 1);
+        
+        showAlert(`${studentName} has been deleted`, 'success');
+        renderStudents();
+        updateStudentCount();
+        
+        // Reset editing if we were editing the deleted student
+        if (editingIndex === index) {
+          editingIndex = -1;
+          $('input, select').val('');
+          $('#addStudent').html('<i class="fas fa-plus"></i> Add Student');
+        }
+      }
+    };
+
+    // Search functionality
+    $('#searchStudent').on('input', function() {
+      const searchTerm = $(this).val().toLowerCase();
+      
+      if (searchTerm === '') {
+        renderStudents();
+        return;
+      }
+      
+      const filteredStudents = studentData.filter(student => 
+        student.name.toLowerCase().includes(searchTerm) ||
+        student.rollno.toLowerCase().includes(searchTerm) ||
+        student.section.toLowerCase().includes(searchTerm) ||
+        student.session.toLowerCase().includes(searchTerm)
+      );
+      
+      renderStudents(filteredStudents);
+    });
+
+    // Initialize
+    updateStudentCount();
+  </script>
+</body>
+</html>

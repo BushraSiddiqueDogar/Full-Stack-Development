@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homepage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: hsl(306, 85%, 22%);
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1000px;
+    }
+
+    li {
+      flex: 0 0 30%;
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+      font-size: 1.2rem;
+      color: #b75aac;
+      padding: 12px 24px;
+      border: 2px solid #e389ea;
+      border-radius: 10px;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #f186fd;
+      color: white;
+    }
+
+    h2 {
+      margin-top: 50px;
+      color: #bc20e2;
+      font-size: 1.8rem;
+    }
+
+    footer {
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    hr {
+      width: 60%;
+      margin: 50px auto;
+      border: none;
+      height: 2px;
+      background-color: #f960da;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Website</h1>
+  </header>
+
+  <main>
+    <ul>
+      <li><a href="/diceGame">🎲 Dice Game</a></li>
+      <li><a href="/drumKitGame">🥁 Drum Kit Game</a></li>
+      <li><a href="/flexMediaQuery">📱 Flex Media Query</a></li>
+      <li><a href="/fullStack">🌐 Hello World</a></li>
+      <li><a href="/profile">👤 Profile</a></li>
+      <li><a href="/object">📘 Student Class</a></li>
+      <li><a href="/universityGrouping">🏫 University Grouping</a></li>
+    </ul>
+
+    <hr>
+
+    <h2>🗂️ File System Actions</h2>
+    <ul>
+      <li><a href="/forms">✍️ Open Form to Write</a></li>
+      <li><a href="/create">📝 Create File</a></li>
+      <li><a href="/read">📖 Read File</a></li>
+    </ul>
+  </main>
+
+  <footer>
+    &copy; 2025 My Project | All rights reserved.
+  </footer>
+</body>
+</html>

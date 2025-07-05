@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drum Kit App</title>
+  <style>
+    body {
+      background-color: #f3f3f3;
+      text-align: center;
+      font-family: sans-serif;
+    }
+    h1 {
+      margin-top: 100px;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 80px;
+      flex-wrap: wrap;
+    }
+    .instrument {
+      width: 150px;
+      height: 150px;
+      border: 2px solid #999;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 1px 1px 3px black;
+      background-color: rgb(51, 51, 51);
+    }
+    .instrument img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎶 Click or Press D / G / P to Play 🎶</h1>
+
+  <div class="container">
+    <div class="instrument" data-key="d">
+      <img src="/Images/drum.png" alt="Drum">
+      D
+    </div>
+    <div class="instrument" data-key="g">
+      <img src="/Images/Guitar.png" alt="Guitar">
+      G
+    </div>
+    <div class="instrument" data-key="p">
+      <img src="/Images/piano.jpeg" alt="Piano">
+      P
+    </div>
+  </div>
+
+  <script>
+    var instruments = document.querySelectorAll(".instrument");
+
+    instruments.forEach(function(item) {
+      item.addEventListener("click", function () {
+        var key = this.dataset.key;
+        playSound(key);
+        this.style.backgroundColor = "red";
+
+      });
+    });
+
+    document.addEventListener("keydown", function(event) {
+      playSound(event.key.toLowerCase());
+    });
+
+    function playSound(key) {
+      let audio;
+      switch (key) {
+        case "d":
+          audio = new Audio("/sounds/my-snare-2-243040.mp3");
+          break;
+        case "g":
+          audio = new Audio("/sounds/guitar-plug-and-play-106347.mp3");
+          break;
+        case "p":
+          audio = new Audio("/sounds/piano-g-6200.mp3");
+          break;
+        default:
+          console.log("No sound assigned for key:", key);
+          return;
+      }
+      audio.play();
+    }
+  </script>
+
+</body>
+</html>

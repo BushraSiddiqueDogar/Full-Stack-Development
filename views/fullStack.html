@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #764ba2;
+            margin: 30px 0 15px 0;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        em {
+            color: #e74c3c;
+            font-style: italic;
+        }
+
+        b {
+            color: #2c3e50;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 5px 0;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        caption {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        /* Nested table styling */
+        .nested-table-container {
+            margin: 30px 0;
+        }
+
+        .nested-table-container table {
+            border: 3px solid #667eea;
+        }
+
+        .nested-table-container table table {
+            border: 2px solid #764ba2;
+            margin: 5px;
+        }
+
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        ul li {
+            list-style-type: none;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "▶";
+            color: #667eea;
+            position: absolute;
+            left: -20px;
+        }
+
+        ol li {
+            color: #2c3e50;
+        }
+
+        dl {
+            margin: 20px 0;
+        }
+
+        dt {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+
+        dd {
+            margin-left: 20px;
+            margin-bottom: 10px;
+            color: #666;
+            font-style: italic;
+        }
+
+        form {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: white;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input[type="submit"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .section {
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello World!</h1>
+        <p>This is the Full Stack Development.</p>
+        
+        <div class="section">
+            <h2>Full Stack Development</h2>
+            <p><b>Full Stack Development</b> is a term used to describe the <em>development</em> of both the front-end and back-end portions of a web application.</p>
+            
+            <!--image tag-->
+            <img src="/Images/Lahore_Garrison_University.png" alt="LGU Logo" width="300" height="300">
+
+            <p>Full Stack Development is a combination of both <b>front-end</b> and <b>back-end</b> development.</p>
+            
+            <a href="https://lgu.edu.pk/" target="_blank">Lahore Garrison University (_blank)</a><br>
+            <a href="https://lgu.edu.pk/" target="_self">Lahore Garrison University (self)</a><br>
+            <a href="https://lgu.edu.pk/" target="_top">Lahore Garrison University (top)</a><br>
+        </div>
+
+        <div class="section">
+            <table>
+                <caption>Full Stack Development</caption>
+                <tr>
+                    <th colspan="3">Full Stack Development Course</th>
+                </tr>
+                <tr>
+                    <th>Full Stack Development</th>
+                    <th>Front End Development</th>
+                    <th>Back End Development</th>
+                </tr>
+                <tr>
+                    <td>HTML</td>
+                    <td>CSS</td>
+                    <td>Node.js</td>
+                </tr>
+                <tr>
+                    <td>JavaScript</td>
+                    <td>React</td>
+                    <td>MySQL</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section nested-table-container">
+            <table>
+                <caption>Nested Table</caption>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Full Stack</td>
+                                <td>Front End</td>
+                                <td>Back End</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Full</td>
+                                <td>Front</td>
+                                <td>Back</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Full</td>
+                                <td>Front</td>
+                                <td>Back</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Full Stack</td>
+                                <td>Front End</td>
+                                <td>Back End</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Technologies - Unordered List</h2>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Node.js</li>
+                <li>Express.js</li>
+            </ul>
+
+            <h2>Technologies - Ordered List</h2>
+            <ol>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Node.js</li>
+                <li>Express.js</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>Technology Definitions</h2>
+            <!-- description list with <dt> (for terms) and <dd> (for descriptions). -->
+            <dl>
+                <dt>HTML</dt>
+                <dd>HTML is the standard markup language for creating web pages.</dd>
+                <dt>CSS</dt>
+                <dd>CSS is a style sheet language used for describing the presentation of a document written in HTML.</dd>
+                <dt>JavaScript</dt>
+                <dd>JavaScript is a programming language that allows you to implement complex features on web pages.</dd>
+            </dl>
+        </div>
+
+        <div class="section">
+            <h2>Contact Form</h2>
+            <form action="mailto:msiddique8100@gmail.com" method="post" enctype="text/plain">
+                <label for="fname">First Name:</label>
+                <input type="text" id="fname" name="fname">
+                
+                <label for="lname">Last Name:</label>
+                <input type="text" id="lname" name="lname">
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" cols="50"></textarea>
+                
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

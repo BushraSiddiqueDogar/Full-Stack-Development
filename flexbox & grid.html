@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Management Dashboard</title>
+  <style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f9;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  padding: 10px;
+  background-color: #2f4050;
+  color: white;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+/* Dashboard Grid */
+.dashboard {
+  display: grid;
+  grid-template-rows: 60px 1fr 40px;
+  grid-template-columns: 250px 1fr 300px;
+  grid-template-areas:
+    "header header header"
+    "sidebar main right"
+    "footer footer footer";
+  height: 100vh;
+}
+
+.header {
+  grid-area: header;
+  background-color: #2f4050;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.footer {
+  grid-area: footer;
+  background-color: #2f4050;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  position: sticky;
+  bottom: 0;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #fff;
+  border-right: 1px solid #ccc;
+  padding: 1rem;
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+}
+
+.sidebar nav ul li {
+  margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #2f4050;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.sidebar nav ul li a:hover {
+  color: #007bff;
+}
+
+.main-content {
+  grid-area: main;
+  padding: 2rem;
+  background-color: #fff;
+  overflow-y: auto;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.right-panel {
+  grid-area: right;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .dashboard {
+    grid-template-columns: 220px 1fr;
+    grid-template-areas:
+      "header header"
+      "sidebar main"
+      "footer footer";
+  }
+
+  .right-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 220px;
+    background-color: #fff;
+    transform: translateX(-100%);
+    z-index: 999;
+  }
+
+  #menu-toggle:checked ~ .dashboard .sidebar {
+    transform: translateX(0);
+  }
+
+  .right-panel {
+    display: none;
+  }
+}</style>
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle">
+  <label for="menu-toggle" class="hamburger">&#9776;</label>
+
+  <div class="dashboard">
+    <header class="header">Hospital Dashboard</header>
+   
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Patients</a></li>
+          <li><a href="#">Appointments</a></li>
+          <li><a href="#">Staff</a></li>
+          <li><a href="#">Reports</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <h2>Welcome to the Hospital Management System</h2>
+      <p>This is the main content area.</p>
+    </main>
+
+    <section class="right-panel">
+      <h3>Notifications</h3>
+      <ul>
+        <li>New patient admitted</li>
+        <li>Lab report uploaded</li>
+        <li>Appointment scheduled</li>
+      </ul>
+    </section>
+
+    <footer class="footer">© 2025 Hospital Management System</footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dice Game</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 60px;
+    }
+    img {
+      width: 200px;
+      height: 200px;
+      margin: 20px;
+    }
+    button {
+      margin-top: 40px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+   <h2>Dice Game</h2>
+  <h1>Refresh to Play</h1>
+  
+  <img src="/Images/dice 1.png" alt="Player 1 Dice">
+  <img src="/Images/dice 1.png" alt="Player 2 Dice">
+
+  <!-- Reload Button -->
+   <div>
+  <button onclick="location.reload();">Play Again</button>
+  </div>
+
+  <script>
+    // Random numbers for both players
+    var p1 = Math.floor(Math.random() * 6) + 1;
+    var p2 = Math.floor(Math.random() * 6) + 1;
+
+    // Image paths
+    var img1Path = "/Images/dice " + p1 + ".png";
+    var img2Path = "/Images/dice " + p2 + ".png";
+
+    // Update images
+    var diceImages = document.querySelectorAll("img");
+    diceImages[0].setAttribute("src", img1Path);
+    diceImages[1].setAttribute("src", img2Path);
+
+    // Decide winner
+    var heading = document.querySelector("h1");
+    if (p1 > p2) {
+      heading.textContent = "Player 1 Wins!";
+      heading.style.color = "Green";
+    } else if (p2 > p1) {
+      heading.textContent = "Player 2 Wins!";
+      heading.style.color = "Blue";
+    } else {
+      heading.textContent = "Draw!";
+      heading.style.color = "red";
+    }
+  </script>
+
+</body>
+</html>
